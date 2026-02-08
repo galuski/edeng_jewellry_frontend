@@ -1,0 +1,258 @@
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 100px 1fr;
+  grid-template-rows: 100px;
+  position: sticky; /* שומר את התפריט קבוע למעלה */
+  top: 0; /* ממקם אותו בצמוד לחלק העליון */
+  left: 0;
+  font-family: Madera, sans-serif;
+  background-color: var(--clr4);
+  color: var(--clr5);
+  width: 100%;
+  z-index: 1000; /* גבוה מספיק כדי להיות מעל כל התוכן */
+}
+
+.nav-links {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  list-style: none;
+  gap: 30px;
+  font-size: 1.25rem;
+  grid-column: 1;
+}
+
+.nav-links .active-link {
+  color: var(--clr1);
+}
+
+.logo {
+  grid-column: 2; /* הלוגו בעמודת האמצע */
+  grid-row: 1; /* בשורה הראשונה */
+  justify-self: center; /* מיושר באמצע */
+  align-self: center;
+  position: relative; /* לא absolute יותר */
+  transform: none; /* מסיר את הטרנספורם שהזיז אותו */
+  width: 100px;
+  height: 100px;
+}
+
+.icons-area {
+  grid-column: 3;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 25px;
+}
+
+.cart-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.cart-icon-btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.notification-badge {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -10px;
+  right: -10px;
+  color: var(--clr4);
+  background-color: var(--clr1);
+  width: 15px;
+  height: 15px;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: var(--clr5);
+}
+.nav-links li a:hover {
+  color: var(--clr1);
+  cursor: pointer;
+}
+
+.button {
+  display: none;
+}
+
+.select-lang {
+  appearance: none; /* מסיר את העיצוב הדיפולטי (החץ של הדפדפן וכו') */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--clr1);
+  /* border: 1px solid #ccc; */
+  padding: 2px 3px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--clr4);
+  cursor: pointer;
+  outline: none;
+}
+@media (max-width: 950px) {
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 100px 1fr;
+  grid-template-rows: 100px;
+  position: sticky; /* שומר את התפריט קבוע למעלה */
+  top: 0; /* ממקם אותו בצמוד לחלק העליון */
+  left: 0;
+  font-family: Madera, sans-serif;
+  background-color: var(--clr4);
+  color: var(--clr5);
+  width: 100%;
+  z-index: 1000; /* גבוה מספיק כדי להיות מעל כל התוכן */
+}
+
+  .button {
+    border: 0;
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    align-self: center;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0.6;
+    scale: 0.7;
+    border-radius: 8px;
+    transition: 0.25s;
+    background-color: var(--clr4);
+    order: 0;
+  }
+
+  .burger {
+    position: relative;
+    width: 32px;
+    border: 0;
+  }
+
+  .burger,
+  .burger::before,
+  .burger::after {
+    display: block;
+    border-radius: 2px;
+    height: 2px;
+    background-color: var(--clr1);
+    transition: 0.3s;
+  }
+
+  .burger::before,
+  .burger::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+  }
+
+  .burger::before {
+    top: -8px;
+  }
+
+  .burger::after {
+    top: 8px;
+  }
+
+  .burger-2,
+  .burger-2::before,
+  .burger-2::after {
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.2s;
+  }
+
+  .burger-2::before,
+  .burger-2::after {
+    width: 16px;
+  }
+
+  .burger-2::before {
+    left: 0;
+    transform-origin: 100% 0%;
+  }
+
+  .burger-2::after {
+    left: 16px;
+    transform-origin: 0% 100%;
+  }
+
+  .is-closed .burger-2 {
+    transform: rotate(-45deg);
+  }
+
+  .is-closed .burger-2::before {
+    transform: rotate(90deg) translate(10px, -1px);
+  }
+
+  .is-closed .burger-2::after {
+    transform: rotate(90deg) translate(-9px, 1px);
+    width: 16px;
+  }
+
+  /* .navbar {
+        display: flex;
+        justify-content: space-between;
+    } */
+
+  .logo {
+    order: 1;
+    z-index: 10;
+  }
+
+  .icons-area {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    order: 3;
+    z-index: 10;
+  }
+
+  .navbar .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--clr4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .navbar .nav-links.open {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .navbar .nav-links li {
+    width: 100%;
+    font-size: 1.5rem;
+    text-align: center;
+    color: var(--clr5);
+  }
+
+  .navbar .nav-links li:hover {
+    text-decoration: none;
+    color: var(--clr1);
+  }
+
+  .navbar .nav-links li:hover {
+    color: var(--clr1);
+    cursor: pointer;
+  }
+}

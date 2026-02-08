@@ -1,0 +1,15 @@
+:root{
+/* Colors */
+--clr1: #930F0D;
+--clr2: #5A5A5A ;
+--clr3: #D6D5D5;
+--clr4: #FAFDFF;
+--clr6: #EEEEEE;
+--clr5: #000000;
+
+--clr9: #D25124;
+/* Breakpoints */
+--mobile-breakpoint: 460px;
+--narrow-breakpoint: 720px;
+--normal-breakpoint: 960px;
+}

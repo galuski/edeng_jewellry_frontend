@@ -1,0 +1,79 @@
+.edit-item {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Assistant', sans-serif;
+}
+
+.edit-item h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.edit-item form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: 600;
+    color: #444;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+}
+
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+}
+
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.image-upload label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.image-upload img {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    border-radius: 6px;
+    margin-top: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* רספונסיביות */
+@media (max-width: 600px) {
+    .edit-item {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="file"] {
+        font-size: 0.9rem;
+    }
+
+    .image-upload img {
+        max-width: 100px;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+}

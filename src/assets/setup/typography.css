@@ -1,0 +1,59 @@
+@font-face {
+  font-family: assistant;
+  src: url(./../../../public/fonts/assistant/Assistant-Regular.ttf);
+}
+@font-face {
+  font-family: assistantBold;
+  src: url(./../../../public/fonts/assistant/Assistant-Bold.ttf);
+}
+
+@font-face {
+  font-family: cinzel;
+  src: url(./../../../public/fonts/cinzel/Cinzel-Regular.ttf);
+}
+
+@font-face {
+  font-family: cinzelBold;
+  src: url(./../../../public/fonts/cinzel/Cinzel-Bold.ttf);
+}
+
+@font-face {
+  font-family: frankRuhlLibre;
+  src: url(./../../../public/fonts/frankRuhlLibre/FrankRuhlLibre-Regular.ttf);
+}
+@font-face {
+  font-family: frankRuhlLibreBold;
+  src: url(./../../../public/fonts/frankRuhlLibre/FrankRuhlLibre-Bold.ttf);
+}
+
+@font-face {
+  font-family: lora;
+  src: url(./../../../public/fonts/lora/Lora-Regular.ttf);
+}
+@font-face {
+  font-family: loraBold;
+  src: url(./../../../public/fonts/fonts/lora/Lora-Bold.ttf);
+}
+
+@font-face {
+  font-family: "NotoSansHebrew";
+  src: url(./../../../public/fonts/NotoSansHebrew/NotoSansHebrew-Regular.ttf)
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: NotoSansHebrewBold;
+  src: url(./../../../public/fonts/NotoSansHebrew/NotoSansHebrew-Bold.ttf);
+}
+
+@font-face {
+  font-family: aharoni-clm;
+  src: url(./../../../public/fonts/aharoni-clm/aharoni-clm.ttf);
+}
+
+@font-face {
+  font-family: VarelaRound;
+  src: url(./../../../public/fonts/VarelaRound/VarelaRound-Regular.ttf);
+}

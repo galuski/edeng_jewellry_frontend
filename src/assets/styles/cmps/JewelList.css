@@ -1,0 +1,72 @@
+.jewel-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    list-style: none;
+    padding: 20px 0;
+}
+
+.add-to-cart-btn {
+    margin-top: 10px;
+    border: none;
+    padding: 10px;
+    color: white;
+    background-color: var(--clr2);
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    transition: background-color 0.3s, opacity 0.3s;
+}
+
+.add-to-cart-btn:hover {
+    opacity: 0.6;
+}
+
+.add-to-cart-btn.added {
+    background-color: var(--clr1);
+}
+
+.add-to-cart-btn.sold-out {
+    background-color: black;
+    cursor: not-allowed;
+}
+
+/* טאבלטים */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .jewel-list{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* כל עמודה תקבל חלק שווה מהרוחב */
+        gap: 30px;
+        list-style: none;
+        padding: 20px 0;
+
+    }
+  }
+
+
+  /* מובייל גדול */
+@media (max-width: 768px) {
+    .jewel-list {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        list-style: none;
+        padding: 20px 0;
+    }
+  }
+
+  /* מובייל קטן */
+@media (max-width: 480px) {
+    .jewel-list {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        list-style: none;
+        padding: 20px 0;
+    }
+}

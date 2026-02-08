@@ -1,0 +1,122 @@
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* ליישור אופקי אם צריך */
+}
+
+.slide {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: opacity 0.5s ease-in-out;
+  filter: brightness(70%);
+}
+
+.slide-hidden {
+  opacity: 0;
+}
+
+.arrow {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  filter: drop-shadow(0px 0px 5px #555);
+  width: 2rem;
+  height: 2rem;
+  color: var(--clr4);
+  cursor: pointer;
+  z-index: 10; /* מוודא שהחצים יהיו מעל התמונות */
+}
+
+.arrow:hover {
+  cursor: pointer;
+}
+
+.arrow-left {
+  left: 1rem;
+}
+
+.arrow-right {
+  right: 1rem;
+}
+
+.indicators {
+  display: none;
+  justify-content: center;
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%); /* ממרכז את האינדיקטורים */
+}
+
+.indicator {
+  background-color: white;
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 100%;
+  border: none;
+  outline: none;
+  box-shadow: 0px 0px 5px #555;
+  margin: 0 0.2rem;
+  cursor: pointer;
+}
+
+.indicator-inactive {
+  background-color: grey;
+}
+
+.carousel-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  gap: 25px;
+  color: var(--clr4);
+}
+
+.carousel-content h1 {
+  font-size: 1.6rem;
+  text-align: center;
+}
+.carousel-content h2 {
+  font-size: 1.8rem;
+  text-align: center;
+}
+.carousel-content h3 {
+  font-size: 1.8rem;
+  margin-top: -20px;
+}
+
+.carousel-content-marker {
+  color: var(--clr1);
+}
+
+/* מובייל גדול */
+@media (max-width: 768px) {
+
+  .carousel-content h1 {
+  font-size: 1rem;
+  text-align: center;
+}
+
+  .carousel-content h2 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  .carousel-content h3 {
+    font-size: 1.2rem;
+    margin-top: -20px;
+  }
+}

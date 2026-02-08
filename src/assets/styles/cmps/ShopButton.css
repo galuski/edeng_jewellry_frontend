@@ -1,0 +1,61 @@
+.shop-btn {
+  color: #fff;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 45px;
+  margin: 0 0 2em;
+  max-width: 170px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .shop-btn {
+    margin: 0 1em 2em;
+  }
+}
+
+.shop-btn:hover {
+  text-decoration: none;
+  border-style: none;
+}
+
+/* Button One */
+.btn-1 {
+  font-weight: 100;
+  position: relative;
+}
+
+.btn-1 svg {
+  height: 45px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.btn-1 svg rect {
+  fill: none;
+  stroke: var(--clr4);
+  stroke-width: 2;
+  stroke-dasharray: 422, 0;
+  transition: all 0.35s linear;
+}
+
+.btn-1:hover {
+  background: transparent;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.btn-1:hover svg rect {
+  stroke-width: 5;
+  stroke-dasharray: 15, 310;
+  stroke-dashoffset: 48;
+  transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);
+}

@@ -1,0 +1,48 @@
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.title-dot{
+    font-size: 24px;
+}
+
+/* כיוון אופקי ברירת מחדל */
+.title.horizontal {
+    flex-direction: row;
+}
+
+/* כיוון אנכי */
+.title.vertical {
+    flex-direction: column;
+}
+
+/* כיוון אופקי - ליין */
+.line.horizontal {
+    width: 50px;
+    height: 2px;
+    background-color: var(--clr2);
+    border-radius: 2px;
+}
+
+/* כיוון אנכי - ליין */
+.line.vertical {
+    width: 2px;
+    height: 50px;
+    background-color: var(--clr2);
+    border-radius: 2px;
+}
+
+.point {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-color: var(--clr1);
+    color: var(--clr4);
+    margin: 10px;
+}

@@ -1,0 +1,35 @@
+/* SETUP */
+@import url("./setup/variables.css");
+@import url("./setup/typography.css");
+
+/* BASICS */
+@import url("./basics/base.css");
+@import url("./basics/layout.css");
+
+/* COMPONENTS */
+@import url(./styles/cmps/Navbar.css);
+@import url(./styles/cmps/ShopButton.css);
+@import url(./styles/cmps/Video.css);
+@import url(./styles/cmps/Loader.css);
+@import url(./styles/cmps/JewelList.css);
+@import url(./styles/cmps/JewelPreview.css);
+@import url(./styles/cmps/AppFooter.css);
+@import url(./styles/cmps/AdminAdd.css);
+@import url(./styles/cmps/JewelryFilter.css);
+@import url(./styles/cmps/AdminList.css);
+@import url(./styles/cmps/Title.css);
+@import url(./styles/cmps/WhatsApp.css);
+@import url(./styles/cmps/HeroSection.css);
+@import url(./styles/cmps/Carousal.css);
+@import url(./styles/cmps/CookieConsent.css);
+@import url(./styles/cmps/Information.css);
+@import url(./styles/cmps/CategoryList.css);
+
+
+@import url(./views/About.css);
+@import url(./views/AdminSettings.css);
+@import url(./views/ShoppingCart.css);
+@import url(./views/Contact.css);
+@import url(./views/JewelDetails.css);
+@import url(./views/EditItem.css);
+@import url(./views/LoginSignup.css);

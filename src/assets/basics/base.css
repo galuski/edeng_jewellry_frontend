@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--clr4);
+    color: var(--clr1);
+    font-family: Lora, sans-serif; /* Default font for body */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Cinzel, serif; /* Heading font */
+}
+
+h1, h2 {
+    font-family: CinzelBold, serif; /* Bold headings */
+}
+
+p, pre, ul, li, a {
+    font-family: Lora, sans-serif; /* Body text and links */
+}
+
+button {
+    cursor: pointer;
+    font-family: Assistant, sans-serif; /* Button font */
+}
+
+html[lang="he"] body,
+html[lang="he"] nav,
+html[lang="he"] p,
+html[lang="he"] pre,
+html[lang="he"] ul,
+html[lang="he"] li,
+html[lang="he"] h1,
+html[lang="he"] h2,
+html[lang="he"] h3,
+html[lang="he"] h4,
+html[lang="he"] h5,
+html[lang="he"] h6,
+html[lang="he"] button {
+    font-family: 'VarelaRound', Arial, sans-serif;
+}
+
+select{
+    background-color: transparent;
+    border: none;
+}
+
+input{
+    margin: 25px 0;
+    outline: none;
+}

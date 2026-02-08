@@ -1,0 +1,109 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--clr4);
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-links ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  list-style: none;
+}
+
+.footer-links ul li a {
+  text-decoration: none;
+  color: var(--clr5);
+}
+
+.footer-links .active-link {
+  font-weight: bold;
+}
+
+.socials {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.footer-socials .icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-socials img {
+  width: 24px;
+  height: 24px;
+}
+
+.footer a {
+  text-decoration: none;
+  color: var(--clr5);
+}
+
+.footer-acces {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-acces p{
+  margin: 0;
+}
+
+.create-by {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--clr2);
+}
+
+.footer-logo{
+  opacity: 0;
+}
+
+.footer-credit-link{
+  color: var(--clr2);
+  text-decoration: none;
+  margin: 0 3px;
+}
+/* טאבלטים */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* אין צורך כרגע */
+}
+
+/* מובייל גדול */
+@media (max-width: 768px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    gap: 20px;
+  }
+}
+
+/* מובייל קטן */
+@media (max-width: 480px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    gap: 20px;
+  }
+}

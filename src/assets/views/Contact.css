@@ -1,0 +1,152 @@
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.contact-img {
+  max-width: 600px;
+  max-height: 600px;
+}
+
+.container form {
+  max-width: 450px;
+  width: 100%;
+  padding: 30px 0 0 0;
+}
+
+.container form .form-row {
+  display: flex;
+}
+
+form .form-row .input-data {
+  width: 100%;
+  height: 40px;
+  position: relative;
+}
+
+form .form-row .textarea {
+  height: 70px;
+  margin-top: 20px;
+}
+
+.input-data input,
+.textarea textarea {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-size: 17px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+}
+
+.input-data input:focus ~ label,
+.textarea textarea:focus ~ label,
+.input-data input:valid ~ label,
+.textarea textarea:valid ~ label {
+  transform: translateY(-20px);
+  font-size: 14px;
+  color: var(--clr1);
+}
+
+.textarea textarea {
+  resize: none;
+  padding-top: 10px;
+  outline: none;
+}
+
+.input-data label {
+  position: absolute;
+  pointer-events: none;
+  bottom: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.textarea label {
+  width: 100%;
+  bottom: 40px;
+  background: #fff;
+}
+
+.input-data .underline {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+}
+
+.input-data .underline:before {
+  position: absolute;
+  content: "";
+  height: 2px;
+  width: 100%;
+  background: var(--clr1);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.input-data input:focus ~ .underline:before,
+.input-data input:valid ~ .underline:before,
+.textarea textarea:focus ~ .underline:before,
+.textarea textarea:valid ~ .underline:before {
+  transform: scale(1);
+}
+
+.contact-submit {
+  width: 100%;
+  height: 35px;
+  background: var(--clr1);
+  color: var(--clr4);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 25px;
+  transition: 0.5s;
+}
+
+.contact-submit:hover {
+  background: #e34913;
+}
+
+.contact-submit:focus {
+  outline: 3px solid #e34913;
+}
+
+/* רספונסיביות */
+@media (max-width: 1024px) {
+  .contact {
+    flex-direction: column;
+  }
+
+  .contact-img {
+    width: 100%;
+    max-height: 600px;
+  }
+
+  .container form {
+    width: 100%;
+    padding: 10px 0 20px 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .container .text {
+    font-size: 30px;
+  }
+
+  .container form .form-row {
+    display: block;
+  }
+
+  form .form-row .input-data {
+    margin: 35px 0 !important;
+  }
+
+  .contact-submit {
+    margin: 0;
+  }
+}

@@ -1,0 +1,51 @@
+.information-bar {
+  width: 100%;
+  background-color: var(--clr1);
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  height: 40px;            /* גובה קבוע לשורת הבר */
+  display: flex;
+  align-items: center;     /* ממרכז אנכית את הטקסט */
+}
+
+.information-txt {
+  display: inline-block;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+}
+
+/* עברית (RTL) – ריצה מימין לשמאל */
+html[dir="rtl"] .information-txt {
+  right: -100%; /* מתחיל מחוץ למסך בצד ימין */
+  animation: marquee-rtl 12s linear infinite;
+}
+
+/* אנגלית/ספרדית (LTR) – ריצה משמאל לימין */
+html[dir="ltr"] .information-txt {
+  left: -100%; /* מתחיל מחוץ למסך בצד שמאל */
+  animation: marquee-ltr 10s linear infinite;
+}
+
+@keyframes marquee-rtl {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 100%;
+  }
+}
+
+@keyframes marquee-ltr {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}

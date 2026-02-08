@@ -1,0 +1,70 @@
+/* --- Category List Styles --- */
+
+.category-list-container {
+    width: 100%;
+    padding: 20px 0 20px 0;
+}
+
+.category-grid {
+    display: grid;
+    /* יוצר גריד שמתאים את עצמו למסך - מינימום 300 פיקסל לכרטיס */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 20px;
+}
+
+.category-card {
+    position: relative;
+    height: 400px; /* גובה הכרטיסייה */
+    cursor: pointer;
+    overflow: hidden;
+    background-color: #f4f4f4;
+}
+
+.category-card:hover .category-img {
+    transform: scale(1.05); /* אפקט זום עדין לתמונה */
+}
+
+.category-img {
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.8);
+    object-fit: cover; /* חותך את התמונה שתמלא את כל הריבוע */
+    transition: transform 0.5s ease;
+}
+
+.category-overlay {
+    position: absolute;
+    bottom: 30px;
+    inset-inline-start: 30px;
+    color: var(--clr4);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* צל לטקסט שיראו אותו על כל רקע */
+    z-index: 10;
+}
+
+.category-overlay h3 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: start;
+    inset-inline-start: 30px;
+}
+
+.shop-now-link {
+    font-size: 0.9rem;
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* התאמה למובייל */
+@media (max-width: 768px) {
+    .category-card {
+        height: 300px;
+    }
+    
+    .category-overlay h3 {
+        font-size: 1.4rem;
+    }
+}

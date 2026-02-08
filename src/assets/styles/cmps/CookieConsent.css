@@ -1,0 +1,102 @@
+.cookie-consent {
+  width: 320px;
+  max-width: 90%; /* מתאים למסכים קטנים */
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  gap: 5px;
+  position: fixed;
+  bottom: 20px;
+  left: 80%; /* מרכז */
+  transform: translateX(-50%) translateY(30px);
+  box-shadow: 2px 2px 20px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+/* מחלקה להפעלת האנימציה */
+.cookie-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.cookie-svg {
+  width: 50px;
+}
+
+.cookieHeading {
+  font-size: 1.2em;
+  font-weight: 800;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+.cookieDescription {
+  font-size: 0.8em;
+  text-align: center;
+  color: #636363;
+}
+
+.cookie-container-btn {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.acceptButton, .declineButton {
+  width: 80px;
+  height: 30px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.acceptButton {
+  background-color: #D25124;
+  color: #fff;
+}
+
+.acceptButton:hover {
+  background-color: #E35B32;
+}
+
+.declineButton {
+  background-color: #dadada;
+  color: #2e2e2e;
+}
+
+.declineButton:hover {
+  background-color: #ebebeb;
+}
+
+/* --- רספונסיבי למובייל --- */
+@media (max-width: 480px) {
+  .cookie-consent {
+    width: 90%;           /* כמעט כל רוחב המסך */
+    bottom: 20%;          /* באמצע המסך אנכית */
+    left: 50%;            /* באמצע המסך אופקית */
+    transform: translate(-50%, 50%); /* ממרכז המסך למטה */
+    padding: 12px;
+  }
+
+  .cookieHeading {
+    font-size: 1em;
+  }
+
+  .cookieDescription {
+    font-size: 0.7em;
+  }
+
+  .cookie-container-btn {
+    flex-direction: row;
+    gap: 10px;
+  }
+}

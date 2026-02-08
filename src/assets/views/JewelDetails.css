@@ -1,0 +1,158 @@
+.details-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: start;
+}
+
+.details-imgs {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.details-imgs .thumbnails {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.details-imgs img {
+  width: 100%;
+  cursor: pointer;
+  max-width: 100%;
+  height: auto;
+}
+
+.main-image {
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+  margin-bottom: 10px;
+  cursor: zoom-in;
+  position: relative;
+}
+
+.magnifier {
+  position: absolute; /* במקום fixed */
+  width: 150px;
+  height: 150px;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: 250%; /* אפשר לשחק עם ערך זה */
+  pointer-events: none;
+  display: none;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.2s ease; /* הופעה עדינה */
+  z-index: 100;
+}
+
+
+.details-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.details-text p {
+  line-height: 1.4; /* או 1.5 אם אתה רוצה טיפה יותר מרווח */
+  text-align: start; /* מתחיל אוטומטית בצד השפה */
+}
+
+.details-title {
+  font-size: 2.5rem;
+}
+
+.details-price {
+  font-size: 2rem;
+}
+
+.details-li{
+  list-style: none;
+  color: var(--clr5);
+  margin-bottom: 5px;
+}
+
+.details-p{
+  padding: 0;
+  margin: 0;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 10px 0px;
+  margin: 0;
+  display: block;
+  list-style: none;
+  appearance: none; /* מבטל את החץ הדיפולטיבי בחלק מהדפדפנים */
+}
+
+/* .add-to-cart-btn {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  background-color: var(--clr1);
+  color: white;
+} */
+
+
+.add-to-cart-btn.sold-out {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+/* מובייל */
+@media (max-width: 768px) {
+  .details-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+
+  .details-title, .details-price {
+    text-align: center;
+  }
+}
+
+html[lang="en"] .details-text {
+  text-align: left;
+  align-items: flex-start;
+}
+
+html[lang="he"] .details-text {
+  text-align: right;
+  align-items: flex-start;
+}
+
+html[lang="he"] details {
+  direction: rtl;
+  text-align: right;
+  display: block;
+  width: 100%;
+}
+
+html[lang="he"] summary {
+  text-align: right;
+  padding: 5px 0px;
+  display: block;
+  width: 100%;
+}
+
+html[lang="he"] details p,
+html[lang="he"] details ul {
+  text-align: right;
+  padding-right: 15px;
+  margin-right: 0;
+}
+
+html[lang="en"] details {
+  direction: ltr;
+  text-align: left;
+}

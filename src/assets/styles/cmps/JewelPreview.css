@@ -1,0 +1,347 @@
+.jewel-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  list-style: none;
+}
+
+.sold-out-stiker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  font-size: 1.25rem;
+  padding: 3px 6px;
+  color: var(--clr4);
+  background-color: var(--clr5);
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 420px;
+}
+
+.jewel-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.image-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.image-container:hover .image {
+  opacity: 0;
+}
+
+.image-container:hover .image-hover {
+  opacity: 1;
+}
+
+.card-title {
+  text-align: center;
+  height: 20px;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  margin: 0;
+  color: var(--clr1);
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 0.875rem;
+  height: 60px; /* או יותר אם צריך גובה קבוע */
+  gap: 2px; /* ריווח בין מחיר קודם לנוכחי */
+}
+
+.invisible-placeholder {
+  visibility: hidden;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+ins {
+  text-decoration: none;
+}
+
+.fake-line-price {
+  position: relative;
+  display: inline-block;
+  color: #888; /* צבע למחיר הישן */
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.fake-line-price::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px; /* עובי הקו */
+  background-color: var(--clr1); /* צבע הקו - אפשר לשנות */
+  transform: rotate(-20deg);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.card-preview-data {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* יוצר ריווח שווה בין הכותרת, המחיר והכפתור */
+  align-items: center;
+  gap: 5px;
+}
+
+.card-price {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* מובייל גדול */
+@media (max-width: 768px) {
+  .jewel-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    list-style: none;
+  }
+
+  .sold-out-stiker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    font-size: 1.25rem;
+    padding: 3px 6px;
+    color: var(--clr4);
+    background-color: var(--clr5);
+  }
+
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: 420px;
+  }
+
+  .jewel-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+
+  .image-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .image-container:hover .image {
+    opacity: 0;
+  }
+
+  .image-container:hover .image-hover {
+    opacity: 1;
+  }
+
+  .card-title {
+    text-align: center;
+    height: 20px;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 0.875rem;
+    height: 60px; /* או יותר אם צריך גובה קבוע */
+    gap: 2px; /* ריווח בין מחיר קודם לנוכחי */
+  }
+
+  .invisible-placeholder {
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  ins {
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+
+  .fake-line-price {
+    position: relative;
+    display: inline-block;
+    color: #888; /* צבע למחיר הישן */
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  .fake-line-price::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px; /* עובי הקו */
+    background-color: var(--clr1); /* צבע הקו - אפשר לשנות */
+    transform: rotate(-20deg);
+    transform-origin: center;
+    pointer-events: none;
+  }
+
+  .card-preview-data {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* יוצר ריווח שווה בין הכותרת, המחיר והכפתור */
+    align-items: center;
+    gap: 5px;
+    font-size: 0.875rem;
+  }
+
+  .card-price {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+}
+
+/* מובייל קטן */
+@media (max-width: 580px) {
+  .jewel-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    list-style: none;
+  }
+
+  .sold-out-stiker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    font-size: 1.25rem;
+    padding: 3px 6px;
+    color: var(--clr4);
+    background-color: var(--clr5);
+  }
+
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: 420px;
+  }
+
+  .jewel-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+  }
+
+  .image-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .image-container:hover .image {
+    opacity: 0;
+  }
+
+  .image-container:hover .image-hover {
+    opacity: 1;
+  }
+
+  .card-title {
+    text-align: center;
+    height: 40px;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 0.875rem;
+    height: 60px; /* או יותר אם צריך גובה קבוע */
+    gap: 2px; /* ריווח בין מחיר קודם לנוכחי */
+  }
+
+  .invisible-placeholder {
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  ins {
+    text-decoration: none;
+  }
+
+  .fake-line-price {
+    position: relative;
+    display: inline-block;
+    color: #888; /* צבע למחיר הישן */
+    margin: 0;
+  }
+
+  .fake-line-price::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px; /* עובי הקו */
+    background-color: var(--clr1); /* צבע הקו - אפשר לשנות */
+    transform: rotate(-20deg);
+    transform-origin: center;
+    pointer-events: none;
+  }
+
+  .card-preview-data {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* יוצר ריווח שווה בין הכותרת, המחיר והכפתור */
+    align-items: center;
+    gap: 5px;
+  }
+
+  .card-price {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+}

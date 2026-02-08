@@ -1,0 +1,61 @@
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 50vh;
+  background-color: var(--clr4);
+}
+
+.hero-text {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 20px;
+}
+
+.hero-text h1 {
+  font-size: 1.75rem;
+  color: var(--clr1);
+  margin-bottom: 20px;
+}
+
+.hero-text h2 {
+  font-size: 1.5rem;
+  color: var(--clr2);
+}
+.hero-text h3 {
+  font-size: 1.25rem;
+  color: var(--clr2);
+}
+
+/* מובייל גדול */
+@media (max-width: 768px) {
+  .hero-section {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap:30px;
+    width: 100%;
+    height: auto;
+    background-color: var(--clr4);
+    margin-top: 30px;
+  }
+
+  .hero-text {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .hero-titles{
+    text-align: center;
+  }
+}
