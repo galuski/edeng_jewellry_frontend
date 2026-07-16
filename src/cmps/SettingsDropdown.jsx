@@ -61,19 +61,19 @@ export function SettingsDropdown() {
                 <div className="settings-menu-content">
                     {/* אזור בחירת שפה */}
                     <div className="settings-section">
-                        <span className="settings-title">Language</span>
+                        <span className="settings-title">{t("Language")}</span>
                         <div className="segmented-control">
                             <button 
                                 className={i18n.language === 'en' ? 'active' : ''} 
                                 onClick={() => changeLanguage('en')}
                             >
-                                EN
+                                {t("English")}
                             </button>
                             <button 
                                 className={i18n.language === 'he' ? 'active' : ''} 
                                 onClick={() => changeLanguage('he')}
                             >
-                                HE
+                                {t("Hebrew")}
                             </button>
                         </div>
                     </div>
@@ -82,19 +82,19 @@ export function SettingsDropdown() {
 
                     {/* אזור בחירת מטבע */}
                     <div className="settings-section">
-                        <span className="settings-title">Currency</span>
+                        <span className="settings-title">{t("Currency")}</span>
                         <div className="segmented-control">
                             <button 
                                 className={currency === 'USD' ? 'active' : ''} 
                                 onClick={() => handleChangeCurrency('USD')}
                             >
-                                $ USD
+                                $ {t("USD")}
                             </button>
                             <button 
                                 className={currency === 'ILS' ? 'active' : ''} 
                                 onClick={() => handleChangeCurrency('ILS')}
                             >
-                                ₪ ILS
+                                ₪ {t("ILS")}
                             </button>
                         </div>
                     </div>
