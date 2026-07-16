@@ -77,7 +77,6 @@ export function JewelDetails() {
     function handleMouseLeave() {
         magnifierRef.current.style.display = "none";
     }
-
     if (!jewel) return <Loader />;
 
     return (
