@@ -2,9 +2,11 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { Loader } from '../cmps/Loader.jsx';
+import { SettingsDropdown } from './SettingsDropdown';
 
 import LogoSVG from './../../public/logo.svg';
 import cartSVG from './../../public/icons/shopping-cart.svg';
+import gearSVG from './../../public/icons/gear.svg';
 
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js';
 import { logout } from '../store/actions/user.actions.js';
@@ -109,7 +111,7 @@ export function Navbar() {
             <img className='logo' src={LogoSVG} alt="logo" />
 
             <div className="icons-area">
-                <LanguageSelector />
+                <SettingsDropdown />
                 <button className="cart-icon-btn">
                     <Link to="/cart">
                         <img className="cart-icon" src={cartSVG} alt="cart" />

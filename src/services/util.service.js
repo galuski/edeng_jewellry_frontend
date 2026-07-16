@@ -6,7 +6,8 @@ export const utilService = {
     saveToStorage,
     animateCSS,
     debounce,
-    getAssetSrc
+    getAssetSrc,
+    getFormattedPrice
 }
 
 function makeId(length = 6) {
@@ -80,4 +81,14 @@ function getAssetSrc(name) {
     const modules = import.meta.globEager('/src/assets/img/*')
     const mod = modules[path]
     return mod.default
+}
+
+function getFormattedPrice(priceInILS, currency, exchangeRate) {
+    if (currency === "USD" && exchangeRate > 1) {
+        const priceInUSD = priceInILS / exchangeRate;
+        // עיגול למספר שלם (ללא ספרות עשרוניות) והוספת פסיקים באלפים
+        return `$${Math.round(priceInUSD).toLocaleString()}`; 
+    }
+    // החזרת מחיר בשקלים עם פסיקים לאלפים (למשל: ₪1,500)
+    return `₪${priceInILS.toLocaleString()}`; 
 }

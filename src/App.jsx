@@ -28,6 +28,7 @@ import EditItem from './pages/EditItem'
 import { CookieConsent } from './cmps/CookieConsent'
 // import { Information } from './cmps/Information';
 import { AdminPush } from './cmps/AdminPush';
+import { loadExchangeRate } from './store/actions/system.actions.js';
 
 // 1. איתחול גוגל אנליטיקס עם המזהה שלך
 ReactGA.initialize("G-9J44DC4J3J");
@@ -47,6 +48,10 @@ const AnalyticsTracker = () => {
 export default function App() {
   const { t } = useTranslation();
 
+  useEffect(() => {
+    loadExchangeRate();
+  }, []);
+  
   return (
     <Provider store={store}>
       {/* <Information text={t("information-push")}/> */}

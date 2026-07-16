@@ -6,6 +6,7 @@ import { ADD_JEWEL_TO_CART } from '../store/reducers/jewel.reducer.js'
 import { SET_CART, REMOVE_JEWEL_FROM_CART } from '../store/reducers/jewel.reducer.js'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { utilService } from '../services/util.service.js'
 import { createPayment } from '../services/ypay.service.js'
 
 
@@ -15,6 +16,9 @@ export function ShoppingCart() {
     const navigate = useNavigate()
     const shoppingCart = useSelector(state => state.jewelModule.shoppingCart)
     const user = userService.getLoggedinUser()
+
+    const currency = useSelector(storeState => storeState.systemModule.currency);
+    const exchangeRate = useSelector(storeState => storeState.systemModule.exchangeRate);
 
     const validCouponCode = "edeng10"
     const discountRate = 0.1
@@ -171,7 +175,7 @@ export function ShoppingCart() {
                             <li className='cart-items-title cart-items-item' key={idx}>
                                 <img src={jewel.img} alt={jewel.vendor} />
                                 <p>{jewel.vendor}</p>
-                                <p>₪{jewel.price}</p>
+                                <p>{utilService.getFormattedPrice(jewel.price, currency, exchangeRate)}</p>
                                 <button className='remove-cart-btn' onClick={() => removeFromCart(jewel._id)}>x</button>
                             </li>
                         ))}
@@ -180,14 +184,18 @@ export function ShoppingCart() {
                     <div className="cart-bottom">
                         <div className="cart-total">
                             <h2>{t("Cart Totals")}</h2>
-                            <p>{t("Subtotal")} ₪{subtotal.toFixed(2)}</p>
-                            {isCouponApplied && <p>{t("Discount (10%)")} ₪ -{discountAmount.toFixed(2)}</p>}
+                            <p>{t("Subtotal")} {utilService.getFormattedPrice(subtotal, currency, exchangeRate)}</p>
+                            {isCouponApplied && (
+                                <p>{t("Discount (10%)")} -{utilService.getFormattedPrice(discountAmount, currency, exchangeRate)}</p>
+                            )}
                             <div>
-                            <p className='shopping-cart-delivery-txt'>{t("Delivery Fee")} ₪{deliveryFree}</p>
-                            <p>{t("Home delivery by courier, estimated arrival time: 3–7 business days")}</p>
+                                <p className='shopping-cart-delivery-txt'>
+                                    {t("Delivery Fee")} {utilService.getFormattedPrice(deliveryFree, currency, exchangeRate)}
+                                </p>
+                                <p>{t("Home delivery by courier, estimated arrival time: 3–7 business days")}</p>
                             </div>
-                            <b>{t("Total")} ₪{finalTotal.toFixed(2)}</b>
-
+                            <b>{t("Total")} {utilService.getFormattedPrice(finalTotal, currency, exchangeRate)}</b>
+                            
                             <form className="payer-details-form" onSubmit={handleSubmit} noValidate>
                                 <h2>{t("Order Form")}</h2>
 

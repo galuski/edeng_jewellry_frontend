@@ -6,6 +6,7 @@ import { jewelService } from "../services/jewel.service.js";
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js";
 import { Loader } from "../cmps/Loader.jsx";
 import { ADD_JEWEL_TO_CART, REMOVE_JEWEL_FROM_CART } from "../store/reducers/jewel.reducer";
+import { utilService } from "../services/util.service.js";
 import Title from "../cmps/Title.jsx";
 
 export function JewelDetails() {
@@ -19,6 +20,8 @@ export function JewelDetails() {
     const currentLang = i18n.language;
     const shoppingCart = useSelector(state => state.jewelModule.shoppingCart);
     const [isAdded, setIsAdded] = useState(false);
+    const currency = useSelector(storeState => storeState.systemModule.currency);
+    const exchangeRate = useSelector(storeState => storeState.systemModule.exchangeRate);
 
     useEffect(() => {
         loadJewel();
@@ -113,8 +116,9 @@ export function JewelDetails() {
 
                 <div className="details-text">
                     <h1 className="details-title">{jewel.vendor}</h1>
-                    <p className="details-price">₪{jewel.price}</p>
-                    <p>{currentLang === "en" ? jewel.descriptionENG : jewel.descriptionHEB}</p>
+                    <p className="details-price">
+                        {utilService.getFormattedPrice(jewel.price, currency, exchangeRate)}
+                    </p>                    <p>{currentLang === "en" ? jewel.descriptionENG : jewel.descriptionHEB}</p>
 
                     <p><b>{t("Quantity in stock:")} {jewel.quantity}</b></p>
 

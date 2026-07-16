@@ -1,0 +1,106 @@
+/* Container */
+.settings-dropdown {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Gear Button */
+.gear-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.gear-btn:hover, .gear-btn.active {
+    background-color: #f5f5f5;
+}
+
+.gear-icon {
+    width: 24px;
+    height: 24px;
+    /* אם תרצה שהגלגל יסתובב קצת בלחיצה, אפשר להוסיף אנימציה */
+    transition: transform 0.3s ease; 
+}
+.gear-btn.active .gear-icon {
+    transform: rotate(45deg);
+}
+
+/* Dropdown Menu */
+.settings-menu-content {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0; /* פותח את התפריט שמאלה מהאייקון, שנה ל-left: 0 אם צריך הפוך */
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    padding: 16px;
+    min-width: 220px;
+    z-index: 100;
+    border: 1px solid #eaeaea;
+}
+
+/* RTL Support for the dropdown position */
+[dir="rtl"] .settings-menu-content {
+    right: auto;
+    left: 0;
+}
+
+.settings-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.settings-title {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.settings-divider {
+    border: none;
+    height: 1px;
+    background-color: #eaeaea;
+    margin: 16px 0;
+}
+
+/* Segmented Control Styling */
+.segmented-control {
+    display: flex;
+    background-color: #f4f4f5;
+    border-radius: 8px;
+    padding: 4px;
+    gap: 4px;
+}
+
+.segmented-control button {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+    transition: all 0.2s ease;
+}
+
+.segmented-control button:hover {
+    color: #111;
+}
+
+.segmented-control button.active {
+    background-color: #ffffff;
+    color: #000000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}

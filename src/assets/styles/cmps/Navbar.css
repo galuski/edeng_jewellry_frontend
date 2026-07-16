@@ -45,6 +45,11 @@
   gap: 25px;
 }
 
+.gear-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
 .cart-icon {
   width: 24px;
   height: 24px;
