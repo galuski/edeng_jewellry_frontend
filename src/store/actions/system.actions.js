@@ -4,7 +4,7 @@ import { SET_CURRENCY, SET_EXCHANGE_RATE } from "../reducers/system.reducer.js";
 export async function loadExchangeRate() {
   try {
     // קריאה ל-Endpoint החדש שיצרנו ב-Node.js
-    const response = await fetch("http://localhost:3030/api/exchange/rate"); 
+    const response = await fetch("/api/exchange/rate"); 
     const data = await response.json();
     
     if (data.success && data.rate) {

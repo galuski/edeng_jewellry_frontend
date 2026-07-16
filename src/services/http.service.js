@@ -1,14 +1,11 @@
 import Axios from 'axios'
 
-// console.log(process.env.NODE_ENV);
-
-
 const BASE_URL = import.meta.env.PROD
     ? '/api/'
     : '//localhost:3030/api/'
 
 
-    
+
 const axios = Axios.create({
     withCredentials: true
 })
