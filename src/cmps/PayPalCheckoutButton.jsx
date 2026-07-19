@@ -1,5 +1,6 @@
 import React from 'react';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { httpService } from '../services/http.service.js'; // 👈 עדכן את הנתיב הזה בהתאם למיקום הקובץ שלך
 
 // ✅ הוספנו את onPaymentSuccess לשורת הקבלה (Props)
 const PayPalCheckoutButton = ({ validateForm, payerDetails, amount, cartItems, onPaymentSuccess }) => {
@@ -12,19 +13,12 @@ const PayPalCheckoutButton = ({ validateForm, payerDetails, amount, cartItems, o
 
     const handleCreateOrder = async () => {
         try {
-            const response = await fetch("http://localhost:3030/api/paypal/create-order", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ 
-                    amount: amount,
-                    cart: cartItems,
-                    payer: payerDetails
-                }),
+            // הוחלף ל-httpService - מזהה לבד סביבת פיתוח מול פרודקשן
+            const data = await httpService.post("paypal/create-order", {
+                amount: amount,
+                cart: cartItems,
+                payer: payerDetails
             });
-            
-            const data = await response.json();
             
             if (data.id) {
                 return data.id; 
@@ -38,14 +32,8 @@ const PayPalCheckoutButton = ({ validateForm, payerDetails, amount, cartItems, o
 
     const handleApprove = async (data, actions) => {
         try {
-            const response = await fetch(`http://localhost:3030/api/paypal/${data.orderID}/capture`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-            
-            const orderData = await response.json();
+            // הוחלף ל-httpService
+            const orderData = await httpService.post(`paypal/${data.orderID}/capture`);
             
             if (orderData.status === 'COMPLETED') {
                 // ✅ כאן קורה הקסם האמיתי! קוראים לפונקציה שעושה את מעבר הדף במקום ה-alert
