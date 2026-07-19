@@ -8,7 +8,9 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { utilService } from '../services/util.service.js'
 import { createPayment } from '../services/ypay.service.js'
-
+import PayPalCheckoutButton from '../cmps/PayPalCheckoutButton.jsx'
+import 'react-phone-number-input/style.css'
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 
 export function ShoppingCart() {
     const { t } = useTranslation()
@@ -41,8 +43,8 @@ export function ShoppingCart() {
     }
 
     function isValidPhone(phone) {
-        const cleanPhone = phone.replace(/[\s\-]/g, "") // מסיר רווחים ומקפים
-        return /^(\+9725\d{8}|05\d{8})$/.test(cleanPhone)
+        if (!phone) return false;
+        return isValidPhoneNumber(phone);
     }
 
     function removeFromCart(jewelId) {
@@ -71,44 +73,66 @@ export function ShoppingCart() {
     const discountAmount = isCouponApplied ? subtotal * discountRate : 0
     const totalAfterDiscount = subtotal - discountAmount
     const finalTotal = totalAfterDiscount + deliveryFree
+    const finalTotalInUSD = currency === 'USD' ? finalTotal : (finalTotal / exchangeRate);
+
+    // פונקציה שבודקת אם הטופס תקין
+    function validateForm() {
+        if (!isTermsAccepted) {
+            showErrorMsg(t("You must accept the Terms and Conditions before continuing"));
+            return false;
+        }
+        if (!payerName || !payerEmail || !payerPhone || !payerAddress || !payerCity) {
+            showErrorMsg(t("Please fill in all required fields (name, email, phone, address, city)"));
+            return false;
+        }
+        if (!isValidEmail(payerEmail)) {
+            showErrorMsg(t("Invalid email format"));
+            return false;
+        }
+        if (!isValidPhone(payerPhone)) {
+            showErrorMsg(t("Invalid phone number"));
+            return false;
+        }
+        return true;
+    }
+
+    // ✅ פונקציה חדשה שמופעלת ברגע שפייפאל מדווח על הצלחה!
+    function onPaymentSuccess(orderId) {
+        // מכינים את המוצרים לשמירה בדיוק כמו ב-YPAY
+        const items = shoppingCart.map(jewel => ({
+            _id: jewel._id,
+            price: jewel.price,
+            quantity: 1,
+            vatIncluded: true,
+            name: jewel.vendor || "מוצר ללא שם",
+            description: jewel.descriptionHEB || jewel.descriptionENG || "תכשיט",
+        }))
+
+        // שומרים ב-localStorage כדי שקומפוננטת OrderSuccess תוכל למשוך אותם ולהוריד מלאי
+        localStorage.setItem("lastItems", JSON.stringify(items))
+        localStorage.setItem("lastAmount", finalTotal)
+
+        // ניווט לדף ההצלחה אחרי השהייה קצרה (שפייפאל לא יזרוק שגיאת אזהרה)
+        setTimeout(() => {
+            navigate('/order/success')
+        }, 1500)
+    }
 
     async function handleSubmit(e) {
         e.preventDefault()
 
-        if (!isTermsAccepted) {
-            showErrorMsg(t("You must accept the Terms and Conditions before continuing"))
-            return
-        }
-
-        if (!payerName || !payerEmail || !payerPhone || !payerAddress || !payerCity) {
-            showErrorMsg(t("Please fill in all required fields (name, email, phone, address, city)"))
-            return
-        }
-
-        if (!isValidEmail(payerEmail)) {
-            showErrorMsg(t("Invalid email format"))
-            return
-        }
-
-        if (!isValidPhone(payerPhone)) {
-            showErrorMsg(t("Invalid phone number"))
-            return
-        }
+        if (!validateForm()) return;
 
         try {
-            // פרטי המוצרים בעגלה
-            // פרטי המוצרים בעגלה
             const items = shoppingCart.map(jewel => ({
                 _id: jewel._id,
                 price: jewel.price,
                 quantity: 1,
                 vatIncluded: true,
-                name: jewel.vendor || "מוצר ללא שם",   // כאן מופיע שם המוצר
-                description: jewel.descriptionHEB || jewel.descriptionENG || "תכשיט", // תיאור חופשי
+                name: jewel.vendor || "מוצר ללא שם",
+                description: jewel.descriptionHEB || jewel.descriptionENG || "תכשיט",
             }))
 
-
-            // ✅ הוספת דמי משלוח כפריט נפרד
             if (deliveryFree) {
                 items.push({
                     price: deliveryFree,
@@ -119,29 +143,20 @@ export function ShoppingCart() {
                 })
             }
 
-            // ✅ בניית אובייקט contact לפי הדוקומנטציה של YPAY
             const contact = {
-                name: payerName,                                   // חובה
-                email: payerEmail,                                 // חובה
-                phone: payerPhone,                                 // טלפון קווי
-                mobile: payerPhone,                                // עדיף להוסיף גם כאן – YPAY מזהים "mobile"
+                name: payerName,
+                email: payerEmail,
+                mobile: payerPhone,
+                phone: payerPhone,
                 address: `${payerAddress}, Apt ${payerApartment || ''}, ${payerCity}`,
-                zipcode: payerPostal || "",                        // אופציונלי
-                comments: `Order from Edeng_Jewellry website`,     // אופציונלי
+                zipcode: payerPostal || "",
+                comments: `Order from Edeng_Jewellry website`,
             }
 
-            console.log("✅ Contact sent to YPAY:", contact)
-
-            // ליתר ביטחון: הדפסת הסכום שנשלח
-            console.log("Amount sent to YPAY:", finalTotal.toFixed(2))
-
-
-            // 🔹 שמירה מקומית כדי להפיק קבלה אח"כ
             localStorage.setItem("lastContact", JSON.stringify(contact))
             localStorage.setItem("lastItems", JSON.stringify(items))
             localStorage.setItem("lastAmount", finalTotal)
 
-            // 🔹 קריאה לשרת שלך
             const { url } = await createPayment({
                 amount: +finalTotal.toFixed(2),
                 contact,
@@ -149,7 +164,6 @@ export function ShoppingCart() {
                 discount: isCouponApplied ? 10 : 0,
             })
 
-            console.log("Redirecting to YPAY:", url)
             window.location.href = url
         } catch (err) {
             console.error("❌ Payment redirect error:", err)
@@ -195,7 +209,7 @@ export function ShoppingCart() {
                                 <p>{t("Home delivery by courier, estimated arrival time: 3–7 business days")}</p>
                             </div>
                             <b>{t("Total")} {utilService.getFormattedPrice(finalTotal, currency, exchangeRate)}</b>
-                            
+
                             <form className="payer-details-form" onSubmit={handleSubmit} noValidate>
                                 <h2>{t("Order Form")}</h2>
 
@@ -233,15 +247,13 @@ export function ShoppingCart() {
                                 </div>
 
                                 <div className="form-row">
-                                    <div className="input-data">
-                                        <input
-                                            type="tel"
-                                            name="tel"
-                                            autoComplete="tel"
-                                            required
-                                            className="pay-input"
+                                    <div className={`input-data phone-field-container ${payerPhone ? 'has-value' : ''}`}>
+                                        <PhoneInput
+                                            international
+                                            defaultCountry="IL"
                                             value={payerPhone}
-                                            onChange={(e) => setPayerPhone(e.target.value)}
+                                            onChange={setPayerPhone}
+                                            className="pay-input custom-phone-wrapper"
                                         />
                                         <div className="underline"></div>
                                         <label htmlFor="phone">{t("Phone number")}</label>
@@ -330,10 +342,26 @@ export function ShoppingCart() {
                                         </a>
                                     </label>
                                 </div>
-
-                                <button type="submit" className="cart-submit-btn">
-                                    {t("PROCEED TO CHECKOUT")}
-                                </button>
+                                <div className='shopping-cart-buttons-area'>
+                                    <button type="submit" className="cart-submit-btn">
+                                        {t("PROCEED TO CHECKOUT")}
+                                    </button>
+                                    <PayPalCheckoutButton
+                                        validateForm={validateForm}
+                                        payerDetails={{
+                                            payerName,
+                                            payerEmail,
+                                            payerPhone,
+                                            payerAddress,
+                                            payerApartment,
+                                            payerPostal,
+                                            payerCity
+                                        }}
+                                        amount={+finalTotalInUSD.toFixed(2)}
+                                        cartItems={shoppingCart}
+                                        onPaymentSuccess={onPaymentSuccess} // ✅ העברנו את הפונקציה לכפתור הפייפאל!
+                                    />
+                                </div>
                             </form>
 
                         </div>

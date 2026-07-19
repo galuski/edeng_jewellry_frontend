@@ -50,6 +50,7 @@
   margin-bottom: 24px;
   cursor: pointer;
 }
+
 .cart-bottom {
   margin-top: 80px;
   display: flex;
@@ -77,14 +78,21 @@
   border: none;
   color: var(--clr4) !important;
   background-color: var(--clr1) !important;
-  border-radius: 0 !important;
-  width: max(15vw, 200px);
-  padding: 12px 0px;
+  border-radius: 4px !important;
+  width: 100%;
+  min-height: 45px;
+  padding: 0;
   cursor: pointer;
-  margin-top: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s ease;
 }
 
-.shopping-cart-delivery-txt{
+.cart-submit-btn:hover {
+  opacity: 0.9;
+}
+
+.shopping-cart-delivery-txt {
   margin: 0;
 }
 
@@ -92,9 +100,11 @@
   flex: 1;
   height: 150px;
 }
+
 .cart-promocode p {
   color: #555555;
 }
+
 .cart-promocode-input {
   margin-top: 10px;
   display: flex;
@@ -102,6 +112,7 @@
   align-items: center;
   background: transparent;
 }
+
 .cart-promocode-input input {
   background: transparent;
   border: none;
@@ -118,49 +129,138 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* צבע ברירת מחדל */
 .cart-promocode-btn:not(.applied) {
   background-color: var(--clr5);
   color: var(--clr4);
 }
 
-/* צבע כשמוחל קופון */
 .cart-promocode-btn.applied {
   background-color: #28a745;
   color: white;
   cursor: not-allowed;
 }
 
-payer-details-form {
+/* ========================================= */
+/* עיצוב אחיד וקלאסי לכל טופס ההזמנה (Form)  */
+/* ========================================= */
+
+.payer-details-form {
   width: 100%;
   display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 20px;
 }
 
-.payer-details-form-inputs {
-  margin-top: 8px;
+.form-row {
+  width: 100%;
+}
+
+.input-data {
+  position: relative;
+  width: 100%;
+  height: 45px;
 }
 
 .pay-input {
   width: 100%;
-  margin-bottom: 15px;
-  padding: 8px;
-  border: 1px solid #ccc;
+  height: 100%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  color: #333;
 }
 
-.terms-row {
+.input-data label {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  color: #555;
+  font-size: 16px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.input-data input:focus ~ label,
+.input-data input:valid ~ label,
+.phone-field-container:focus-within label,
+.phone-field-container.has-value label {
+  transform: translateY(-28px);
+  font-size: 13px;
+  color: var(--clr1);
+  font-weight: 500;
+}
+
+.input-data .underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
   width: 100%;
+  background-color: var(--clr1);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.input-data input:focus ~ .underline,
+.phone-field-container:focus-within .underline {
+  transform: scaleX(1);
+}
+
+/* --- התאמות ייעודיות לטלפון --- */
+.custom-phone-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 !important;
+}
+
+.custom-phone-wrapper .PhoneInputCountry {
+  margin-right: 12px;
+  padding-bottom: 5px;
+}
+
+.custom-phone-wrapper .PhoneInputInput {
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  padding: 10px 0;
+  color: #333;
+}
+
+/* --- עיצוב התקנון וכפתורי התשלום --- */
+.terms-row {
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
-  font-size: 0.7rem;
-  margin-top: 20px;
-  gap: 5px;
+  font-size: 13px;
+  gap: 8px;
+  margin-top: 15px;
+  color: #555;
 }
 
-input[type="checkbox"] {
+.input-cheakbox {
   margin: 0;
   accent-color: var(--clr1);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.shopping-cart-buttons-area {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 350px;
+  gap: 15px;
+  margin-top: 25px;
 }
 
 @media (max-width: 750px) {
@@ -170,7 +270,6 @@ input[type="checkbox"] {
   .cart-promocode {
     justify-content: start;
   }
-
   .cart-items-title {
     display: grid;
     grid-template-columns: 1fr 1.5fr 1fr 1fr;
@@ -178,7 +277,6 @@ input[type="checkbox"] {
     color: grey;
     font-size: max(1vw, 12px);
   }
-
   .cart-items-item {
     width: 100%;
     margin: 10px 0px;
