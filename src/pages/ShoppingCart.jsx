@@ -23,7 +23,7 @@ export function ShoppingCart() {
     const exchangeRate = useSelector(storeState => storeState.systemModule.exchangeRate);
 
     const validCouponCode = "edeng10"
-    const discountRate = 0.1
+    const discountRate = 0.2
     const deliveryFree = 0
 
     const [couponInput, setCouponInput] = useState("")
