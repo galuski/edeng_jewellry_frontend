@@ -24,7 +24,7 @@ export function ShoppingCart() {
 
     const validCouponCode = "edeng10"
     const discountRate = 0.1
-    const deliveryFree = 55
+    const deliveryFree = 0
 
     const [couponInput, setCouponInput] = useState("")
     const [isCouponApplied, setIsCouponApplied] = useState(false)
