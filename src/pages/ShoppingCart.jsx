@@ -23,7 +23,7 @@ export function ShoppingCart() {
     const exchangeRate = useSelector(storeState => storeState.systemModule.exchangeRate);
 
     const validCouponCode = "edeng10"
-    const discountRate = 0.2
+    const discountRate = 1000
     const deliveryFree = 0
 
     const [couponInput, setCouponInput] = useState("")
@@ -70,7 +70,7 @@ export function ShoppingCart() {
     }
 
     const subtotal = getCartTotal()
-    const discountAmount = isCouponApplied ? subtotal * discountRate : 0
+    const discountAmount = isCouponApplied ? subtotal - discountRate : 0
     const totalAfterDiscount = subtotal - discountAmount
     const finalTotal = totalAfterDiscount + deliveryFree
     const finalTotalInUSD = currency === 'USD' ? finalTotal : (finalTotal / exchangeRate);
