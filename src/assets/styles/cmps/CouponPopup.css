@@ -15,7 +15,7 @@
 
 /* החלונית עצמה */
 .coupon-popup-content {
-    background: #ffffff;
+    background: var(--clr3);
     padding: 40px;
     border-radius: 16px;
     text-align: center;
@@ -36,13 +36,13 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #999;
+    color: var(clr2);
     transition: color 0.2s;
     z-index: 10;
 }
 
 .close-popup-btn:hover {
-    color: #333;
+    color: var(clr2);
 }
 
 /* תוכן הטקסט מעל הקונפטי */
@@ -52,7 +52,7 @@
 }
 
 .popup-text-content h2 {
-    color: #d4af37; /* צבע זהב שמתאים לתכשיטים */
+    color: var(--clr1); /* צבע זהב שמתאים לתכשיטים */
     margin-bottom: 15px;
     font-size: 2rem;
 }
@@ -60,18 +60,18 @@
 .popup-text-content p {
     font-size: 1.2rem;
     margin-bottom: 30px;
-    color: #444;
+    color: var(clr2);
 }
 
 .popup-text-content strong {
     font-size: 1.4rem;
-    color: #000;
+    color: var(--clr5);
 }
 
 /* כפתור אישור חגיגי */
 .awesome-btn {
-    background-color: #d4af37;
-    color: white;
+    background-color: var(--clr1);
+    color: var(--clr3);
     border: none;
     padding: 12px 30px;
     font-size: 1.2rem;
@@ -82,7 +82,7 @@
 }
 
 .awesome-btn:hover {
-    background-color: #b5952f;
+    background-color: var(--clr1);
     transform: scale(1.05);
 }
 
