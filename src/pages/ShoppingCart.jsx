@@ -22,8 +22,8 @@ export function ShoppingCart() {
     const exchangeRate = useSelector(storeState => storeState.systemModule.exchangeRate);
 
     const validCouponCode = "edeng10"
-    const discountInUSD = 500 // הנחה קבועה של 500 דולר
-    const deliveryFree = 30 // משלוח (הנחתי שהבסיס כאן הוא בשקלים)
+    const discountInUSD = 500 // הנחה של 500 דולר
+    const deliveryFree = 30 // משלוח (הנחתי שהבסיס במערכת שלך הוא שקלים)
 
     const [couponInput, setCouponInput] = useState("")
     const [isCouponApplied, setIsCouponApplied] = useState(false)
@@ -62,30 +62,26 @@ export function ShoppingCart() {
 
         if (couponInput === validCouponCode) {
             setIsCouponApplied(true)
-            // הודעה מותאמת אישית ל-500 דולר (אל תשכח להוסיף לקבצי התרגום שלך)
             showSuccessMsg(t("A discount of $500 has been applied"))
         } else {
             showErrorMsg(t("Invalid coupon code"))
         }
     }
 
-    // --- חישובים כספיים מתוקנים ---
-    
-    const subtotalILS = getCartTotal() // הסכום הבסיסי בשקלים
-    // המרת 500 הדולר לשקלים כדי שנוכל לחסר אותם מהסכום הבסיסי
-    const discountAmountILS = isCouponApplied ? (discountInUSD * exchangeRate) : 0
-    
-    // שימוש ב-Math.max מבטיח שהסכום לעולם לא ירד מתחת ל-0, גם אם ההנחה גדולה מהסל
-    const totalAfterDiscountILS = Math.max(0, subtotalILS - discountAmountILS)
-    
-    const finalTotalILS = totalAfterDiscountILS + deliveryFree
-    
-    // כאן אנחנו מחשבים את הערך האמיתי בדולרים עבור פייפאל 
-    // כדי שיחייב באמת דולרים ולא את סכום השקלים
-    const finalTotalUSD = finalTotalILS / exchangeRate;
-
+    // --- חישובים נכונים המאפשרים סכום שלילי ---
+    const subtotal = getCartTotal()
+    const discountAmount = isCouponApplied ? (discountInUSD * exchangeRate) : 0
+    const totalAfterDiscount = subtotal - discountAmount // כאן זה יירד למינוס
+    const finalTotal = totalAfterDiscount + deliveryFree
+    const finalTotalInUSD = finalTotal / exchangeRate;
 
     function validateForm() {
+        // --- החסימה החדשה שלנו: דורשת סכום חיובי או 0 ---
+        if (finalTotal < 0) {
+            showErrorMsg(t("Please add more items to the cart to fully utilize your $500 coupon"));
+            return false;
+        }
+        
         if (!isTermsAccepted) {
             showErrorMsg(t("You must accept the Terms and Conditions before continuing"));
             return false;
@@ -116,7 +112,7 @@ export function ShoppingCart() {
         }))
 
         localStorage.setItem("lastItems", JSON.stringify(items))
-        localStorage.setItem("lastAmount", finalTotalILS) // שומרים את המחיר בשקלים למערכת שלך
+        localStorage.setItem("lastAmount", finalTotal)
 
         setTimeout(() => {
             navigate('/order/success')
@@ -138,11 +134,9 @@ export function ShoppingCart() {
                 description: jewel.descriptionHEB || jewel.descriptionENG || "תכשיט",
             }))
 
-            // פתרון למערכות סליקה: אם יש הנחה והסכום של הפריטים שונה מסך הקופה, הסליקה עלולה לקרוס.
-            // לכן נוסיף את ההנחה כפריט שלילי.
             if (isCouponApplied) {
                 items.push({
-                    price: -discountAmountILS,
+                    price: -discountAmount,
                     quantity: 1,
                     vatIncluded: true,
                     name: "Coupon Discount",
@@ -172,13 +166,13 @@ export function ShoppingCart() {
 
             localStorage.setItem("lastContact", JSON.stringify(contact))
             localStorage.setItem("lastItems", JSON.stringify(items))
-            localStorage.setItem("lastAmount", finalTotalILS)
+            localStorage.setItem("lastAmount", finalTotal)
 
             const { url } = await createPayment({
-                amount: +finalTotalILS.toFixed(2), // שולחים סכום בשקלים ל-YPAY
+                amount: +finalTotal.toFixed(2),
                 contact,
                 items,
-                discount: 0, // איפסנו כאן כי כבר דחפנו את ההנחה לתוך ה-items כשורה שלילית
+                discount: 0,
             })
 
             window.location.href = url
@@ -215,10 +209,10 @@ export function ShoppingCart() {
                     <div className="cart-bottom">
                         <div className="cart-total">
                             <h2>{t("Cart Totals")}</h2>
-                            <p>{t("Subtotal")} {utilService.getFormattedPrice(subtotalILS, currency, exchangeRate)}</p>
+                            <p>{t("Subtotal")} {utilService.getFormattedPrice(subtotal, currency, exchangeRate)}</p>
                             
                             {isCouponApplied && (
-                                <p>{t("Discount ($500)")} -{utilService.getFormattedPrice(discountAmountILS, currency, exchangeRate)}</p>
+                                <p>{t("Discount ($500)")} -{utilService.getFormattedPrice(discountAmount, currency, exchangeRate)}</p>
                             )}
                             
                             <div>
@@ -227,12 +221,13 @@ export function ShoppingCart() {
                                 </p>
                                 <p>{t("Home delivery by courier, estimated arrival time: 3–7 business days")}</p>
                             </div>
-                            <b>{t("Total")} {utilService.getFormattedPrice(finalTotalILS, currency, exchangeRate)}</b>
+                            
+                            {/* יציג את הסכום השלילי ללקוחה ללא סינון */}
+                            <b>{t("Total")} {utilService.getFormattedPrice(finalTotal, currency, exchangeRate)}</b>
 
                             <form className="payer-details-form" onSubmit={handleSubmit} noValidate>
                                 <h2>{t("Order Form")}</h2>
 
-                                {/* שדות הטופס הוסתרו למען הקריאות, השאר אותם בדיוק כפי שהיו בקוד שלך */}
                                 <div className="form-row">
                                     <div className="input-data">
                                         <input type="text" name="name" autoComplete="name" required className="pay-input" value={payerName} onChange={(e) => setPayerName(e.target.value)} />
@@ -294,13 +289,20 @@ export function ShoppingCart() {
                                 </div>
                                 
                                 <div className='shopping-cart-buttons-area'>
-                                    <button type="submit" className="cart-submit-btn">
+                                    <button 
+                                        type="submit" 
+                                        className="cart-submit-btn"
+                                        // אופציונלי: אפשר גם להפוך את הכפתור לאפור אם הסכום שלילי
+                                        // disabled={finalTotal < 0} 
+                                    >
                                         {t("PROCEED TO CHECKOUT")}
                                     </button>
                                     <PayPalCheckoutButton
                                         validateForm={validateForm}
                                         payerDetails={{ payerName, payerEmail, payerPhone, payerAddress, payerApartment, payerPostal, payerCity }}
-                                        amount={+finalTotalUSD.toFixed(2)} // <-- מעביר לפייפאל דולרים אמיתיים תמיד
+                                        // הגנה למקרה שהסכום שלילי - שולחים ערך מינימלי כדי שפייפאל לא יזרוק שגיאה ברינדור
+                                        // ה-validateForm במילא יחסום את הלחיצה
+                                        amount={finalTotalInUSD > 0 ? +finalTotalInUSD.toFixed(2) : 0.01} 
                                         cartItems={shoppingCart}
                                         onPaymentSuccess={onPaymentSuccess} 
                                     />
