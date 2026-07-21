@@ -1,0 +1,133 @@
+/* רקע כהה חצי שקוף */
+.coupon-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* החלונית עצמה */
+.coupon-popup-content {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    animation: popUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+/* כפתור סגירה (X) */
+.close-popup-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s;
+    z-index: 10;
+}
+
+.close-popup-btn:hover {
+    color: #333;
+}
+
+/* תוכן הטקסט מעל הקונפטי */
+.popup-text-content {
+    position: relative;
+    z-index: 2;
+}
+
+.popup-text-content h2 {
+    color: #d4af37; /* צבע זהב שמתאים לתכשיטים */
+    margin-bottom: 15px;
+    font-size: 2rem;
+}
+
+.popup-text-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #444;
+}
+
+.popup-text-content strong {
+    font-size: 1.4rem;
+    color: #000;
+}
+
+/* כפתור אישור חגיגי */
+.awesome-btn {
+    background-color: #d4af37;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.awesome-btn:hover {
+    background-color: #b5952f;
+    transform: scale(1.05);
+}
+
+/* אנימציות כניסה */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popUp {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* הגדרות קונפטי */
+.confetti-container {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 50px);
+    pointer-events: none;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 20px;
+    opacity: 0;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(600px) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* תמיכה בכיווניות שפות (LTR/RTL) לכפתור הסגירה */
+html[dir="rtl"] .close-popup-btn {
+    right: auto;
+    left: 20px;
+}

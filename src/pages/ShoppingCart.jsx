@@ -10,6 +10,7 @@ import { createPayment } from '../services/ypay.service.js'
 import PayPalCheckoutButton from '../cmps/PayPalCheckoutButton.jsx'
 import 'react-phone-number-input/style.css'
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
+import { CouponPopup } from '../cmps/CouponPopup.jsx'
 
 export function ShoppingCart() {
     const { t } = useTranslation()
@@ -37,6 +38,8 @@ export function ShoppingCart() {
     const [payerCity, setPayerCity] = useState("")
     const [isTermsAccepted, setIsTermsAccepted] = useState(false)
 
+    const [isPopupOpen, setIsPopupOpen] = useState(false)
+
     function isValidEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     }
@@ -54,19 +57,20 @@ export function ShoppingCart() {
         return shoppingCart.reduce((acc, jewel) => acc + jewel.price, 0)
     }
 
-    function applyCoupon() {
-        if (isCouponApplied) {
-            showErrorMsg(t("Coupon already applied"))
-            return
-        }
-
-        if (couponInput === validCouponCode) {
-            setIsCouponApplied(true)
-            showSuccessMsg(t("A discount of $500 has been applied"))
-        } else {
-            showErrorMsg(t("Invalid coupon code"))
-        }
+function applyCoupon() {
+    if (isCouponApplied) {
+        showErrorMsg(t("Coupon already applied"))
+        return
     }
+
+    if (couponInput === validCouponCode) {
+        setIsCouponApplied(true)
+        setIsPopupOpen(true) // מפעיל את הפופאפ!
+        showSuccessMsg(t("A discount of $500 has been applied"))
+    } else {
+        showErrorMsg(t("Invalid coupon code"))
+    }
+}
 
     // --- חישובים נכונים המאפשרים סכום שלילי ---
     const subtotal = getCartTotal()
@@ -333,6 +337,12 @@ export function ShoppingCart() {
                     </div>
                 </>
             )}
+            <CouponPopup 
+                isOpen={isPopupOpen} 
+                onClose={() => setIsPopupOpen(false)} 
+                discountAmount={currency === 'USD' ? discountInUSD : discountAmountILS}
+                currency={currency}
+            />
         </section>
     )
 }
