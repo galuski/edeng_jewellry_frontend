@@ -1,21 +1,21 @@
 import React from 'react';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { httpService } from '../services/http.service.js'; // 👈 עדכן את הנתיב הזה בהתאם למיקום הקובץ שלך
+import { httpService } from '../services/http.service.js'; 
 
-// ✅ הוספנו את onPaymentSuccess לשורת הקבלה (Props)
-const PayPalCheckoutButton = ({ validateForm, payerDetails, amount, cartItems, onPaymentSuccess }) => {
+// ✅ הוספנו את currency לפרופס
+const PayPalCheckoutButton = ({ validateForm, payerDetails, amount, currency, cartItems, onPaymentSuccess }) => {
 
     const initialOptions = {
         "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID,
-        currency: "USD",
+        currency: currency || "USD", // 👈 כאן זה מתעדכן דינמית לפי מה שהלקוחה בחרה
         intent: "capture",
     };
 
     const handleCreateOrder = async () => {
         try {
-            // הוחלף ל-httpService - מזהה לבד סביבת פיתוח מול פרודקשן
             const data = await httpService.post("paypal/create-order", {
                 amount: amount,
+                currency: currency, // 👈 חשוב מאוד! שולחים את המטבע לשרת כדי שייצור את ההזמנה במטבע הנכון
                 cart: cartItems,
                 payer: payerDetails
             });
@@ -32,11 +32,9 @@ const PayPalCheckoutButton = ({ validateForm, payerDetails, amount, cartItems, o
 
     const handleApprove = async (data, actions) => {
         try {
-            // הוחלף ל-httpService
             const orderData = await httpService.post(`paypal/${data.orderID}/capture`);
             
             if (orderData.status === 'COMPLETED') {
-                // ✅ כאן קורה הקסם האמיתי! קוראים לפונקציה שעושה את מעבר הדף במקום ה-alert
                 if (onPaymentSuccess) {
                     onPaymentSuccess(orderData.id);
                 }
@@ -51,9 +49,13 @@ const PayPalCheckoutButton = ({ validateForm, payerDetails, amount, cartItems, o
     };
 
     return (
-        <PayPalScriptProvider options={initialOptions}>
+        // הוספנו key שמכריח את ה-Provider להתעדכן אם המטבע משתנה
+        <PayPalScriptProvider options={initialOptions} key={currency}>
             <div style={{ width: "100%" }}>
                 <PayPalButtons 
+                    // 👈 forceReRender מבטיח שאם הסכום או המטבע משתנים, פייפאל מצייר את הכפתור מחדש עם הנתונים המעודכנים
+                    forceReRender={[amount, currency]} 
+                    
                     onClick={(data, actions) => {
                         const isFormValid = validateForm();
                         if (!isFormValid) {
