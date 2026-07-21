@@ -2,16 +2,16 @@ import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import gearSVG from './../../public/icons/gear.svg';
 
-// 1. ייבוא של Redux והאקשן שיצרנו
+// ייבוא של Redux והאקשן שיצרנו
 import { useSelector } from "react-redux";
-import { setCurrency } from "../store/actions/system.actions.js"; // ודא שהנתיב תואם למיקום הקובץ אצלך
+import { setCurrency } from "../store/actions/system.actions.js"; 
 
 export function SettingsDropdown() {
     const { i18n, t } = useTranslation();
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
     
-    // 2. שאיבת המטבע הנוכחי ישירות מ-Redux במקום סטייט מקומי
+    // שאיבת המטבע הנוכחי ישירות מ-Redux במקום סטייט מקומי
     const currency = useSelector(storeState => storeState.systemModule.currency); 
 
     // סגירת התפריט בלחיצה בחוץ (Click Outside)
@@ -23,28 +23,18 @@ export function SettingsDropdown() {
         }
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [dropdownRef]);
+    }, []); // הסרתי את dropdownRef מהמערך, אין בו צורך כי הוא Ref
 
-    // הגדרת שפה ראשונית
-    useEffect(() => {
-        const savedLanguage = localStorage.getItem("language") || "en";
-        if (i18n.language !== savedLanguage) {
-            i18n.changeLanguage(savedLanguage);
-            document.documentElement.setAttribute("dir", savedLanguage === "he" ? "rtl" : "ltr");
-            document.documentElement.lang = savedLanguage;
-        }
-    }, [i18n]);
-
+    // פונקציה לשינוי שפה - עכשיו נקייה ופשוטה
     const changeLanguage = (lang) => {
         i18n.changeLanguage(lang);
         localStorage.setItem("language", lang);
-        document.documentElement.setAttribute("dir", lang === "he" ? "rtl" : "ltr");
-        document.documentElement.lang = lang;
+        // ה-App.jsx כבר יזהה ש-i18n השתנה ויעדכן את הפונט והכיוון אוטומטית
     };
 
-    // 3. עדכון הפונקציה כך שתפעיל את ה-Action של Redux
+    // הפעלת ה-Action של Redux
     const handleChangeCurrency = (curr) => {
-        setCurrency(curr); // זה מעדכן גם את ה-localStorage וגם את ה-Store הגלובלי
+        setCurrency(curr);
     };
 
     return (

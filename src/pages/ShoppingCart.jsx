@@ -22,9 +22,12 @@ export function ShoppingCart() {
     const currency = useSelector(storeState => storeState.systemModule.currency);
     const exchangeRate = useSelector(storeState => storeState.systemModule.exchangeRate);
 
-    const validCouponCode = "edeng10"
-    const discountInUSD = 500 // הנחה של 500 דולר
-    const deliveryFree = 30 // משלוח (הנחתי שהבסיס במערכת שלך הוא שקלים)
+    const validCouponCode = "Reginabirthday"
+    const discountInUSD = 200 // הנחה עודכנה ל-200 דולר
+    
+    // הגדרת משלוחים דינמיים
+    const regularDeliveryFeeILS = 30 // משלוח רגיל בשקלים
+    const couponDeliveryFeeUSD = 35 // משלוח מיוחד בעת שימוש בקופון (בדולרים)
 
     const [couponInput, setCouponInput] = useState("")
     const [isCouponApplied, setIsCouponApplied] = useState(false)
@@ -54,7 +57,6 @@ export function ShoppingCart() {
     }
 
     function getCartTotal() {
-        // מוודא שהמערך קיים לפני שעושים עליו reduce
         if (!shoppingCart || !Array.isArray(shoppingCart)) return 0;
         return shoppingCart.reduce((acc, jewel) => acc + jewel.price, 0)
     }
@@ -67,24 +69,27 @@ export function ShoppingCart() {
 
         if (couponInput === validCouponCode) {
             setIsCouponApplied(true)
-            setIsPopupOpen(true) // מפעיל את הפופאפ!
-            showSuccessMsg(t("A discount of $500 has been applied"))
+            setIsPopupOpen(true) 
+            showSuccessMsg(t("A discount of $200 has been applied")) // עודכן ל-200
         } else {
             showErrorMsg(t("Invalid coupon code"))
         }
     }
 
-    // --- חישובים נכונים המאפשרים סכום שלילי ---
+    // --- חישובים ---
     const subtotal = getCartTotal()
     const discountAmount = isCouponApplied ? (discountInUSD * exchangeRate) : 0
-    const totalAfterDiscount = subtotal - discountAmount // כאן זה יירד למינוס
-    const finalTotal = totalAfterDiscount + deliveryFree
+    const totalAfterDiscount = subtotal - discountAmount 
+    
+    // חישוב המשלוח הפעיל: אם יש קופון, ממירים את ה-35$ לשקלים. אחרת, 30 שקלים.
+    const activeDeliveryFeeILS = isCouponApplied ? (couponDeliveryFeeUSD * exchangeRate) : regularDeliveryFeeILS
+    
+    const finalTotal = totalAfterDiscount + activeDeliveryFeeILS
     const finalTotalInUSD = finalTotal / exchangeRate;
 
     function validateForm() {
-        // --- החסימה החדשה שלנו: דורשת סכום חיובי או 0 ---
         if (finalTotal < 0) {
-            showErrorMsg(t("Please add more items to the cart to fully utilize your $500 coupon"));
+            showErrorMsg(t("Please add more items to the cart to fully utilize your $200 coupon")); // עודכן ל-200
             return false;
         }
 
@@ -146,13 +151,13 @@ export function ShoppingCart() {
                     quantity: 1,
                     vatIncluded: true,
                     name: "Coupon Discount",
-                    description: "$500 Discount",
+                    description: "$200 Discount", // עודכן ל-200
                 })
             }
 
-            if (deliveryFree) {
+            if (activeDeliveryFeeILS > 0) {
                 items.push({
-                    price: deliveryFree,
+                    price: activeDeliveryFeeILS,
                     quantity: 1,
                     vatIncluded: true,
                     name: "Delivery",
@@ -218,17 +223,17 @@ export function ShoppingCart() {
                             <p>{t("Subtotal")} {utilService.getFormattedPrice(subtotal, currency, exchangeRate)}</p>
 
                             {isCouponApplied && (
-                                <p>{t("Discount ($500)")} -{utilService.getFormattedPrice(discountAmount, currency, exchangeRate)}</p>
+                                <p>{t("Discount ($200)")} -{utilService.getFormattedPrice(discountAmount, currency, exchangeRate)}</p>
                             )}
 
                             <div>
                                 <p className='shopping-cart-delivery-txt'>
-                                    {t("Delivery Fee")} {utilService.getFormattedPrice(deliveryFree, currency, exchangeRate)}
+                                    {/* העברנו כאן את המשתנה הדינמי החדש של המשלוח */}
+                                    {t("Delivery Fee")} {utilService.getFormattedPrice(activeDeliveryFeeILS, currency, exchangeRate)}
                                 </p>
                                 <p>{t("Home delivery by courier, estimated arrival time: 3–7 business days")}</p>
                             </div>
 
-                            {/* יציג את הסכום השלילי ללקוחה ללא סינון */}
                             <b>{t("Total")} {utilService.getFormattedPrice(finalTotal, currency, exchangeRate)}</b>
 
                             <form className="payer-details-form" onSubmit={handleSubmit} noValidate>
@@ -336,7 +341,6 @@ export function ShoppingCart() {
                 </>
             )}
             
-            {/* 🌟 התיקון של המשתנה כאן: discountAmount במקום discountAmountILS */}
             <CouponPopup
                 isOpen={isPopupOpen}
                 onClose={() => setIsPopupOpen(false)}

@@ -46,12 +46,18 @@ const AnalyticsTracker = () => {
 };
 
 export default function App() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  
+  useEffect(() => {
+    const currentLang = i18n.language || "en";
+    document.documentElement.lang = currentLang;
+    document.documentElement.setAttribute("dir", currentLang === "he" ? "rtl" : "ltr");
+  }, [i18n.language]);
 
   useEffect(() => {
     loadExchangeRate();
   }, []);
-  
+
   return (
     <Provider store={store}>
       {/* <Information text={t("information-push")}/> */}
