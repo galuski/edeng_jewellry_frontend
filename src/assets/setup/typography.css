@@ -57,3 +57,11 @@
   font-family: VarelaRound;
   src: url(./../../../public/fonts/VarelaRound/VarelaRound-Regular.ttf);
 }
+@font-face {
+  font-family: jost;
+  src: url(./../../../public/fonts/jost/Jost-Regular.ttf);
+}
+@font-face {
+  font-family: jostBold;
+  src: url(./../../../public/fonts/jost/Jost-Bold.ttf);
+}

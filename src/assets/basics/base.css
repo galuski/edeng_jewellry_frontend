@@ -10,24 +10,24 @@ body {
     height: 100vh;
     background-color: var(--clr4);
     color: var(--clr1);
-    font-family: Lora, sans-serif; /* Default font for body */
+    font-family: jost, sans-serif; /* Default font for body */
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: Cinzel, serif; /* Heading font */
+    font-family: jost, serif; /* Heading font */
 }
 
 h1, h2 {
-    font-family: CinzelBold, serif; /* Bold headings */
+    font-family: jost, serif; /* Bold headings */
 }
 
 p, pre, ul, li, a {
-    font-family: Lora, sans-serif; /* Body text and links */
+    font-family: jost, sans-serif; /* Body text and links */
 }
 
 button {
     cursor: pointer;
-    font-family: Assistant, sans-serif; /* Button font */
+    font-family: jost, sans-serif; /* Button font */
 }
 
 html[lang="he"] body,
@@ -43,7 +43,7 @@ html[lang="he"] h4,
 html[lang="he"] h5,
 html[lang="he"] h6,
 html[lang="he"] button {
-    font-family: 'VarelaRound', Arial, sans-serif;
+    font-family: 'assistant', Arial, sans-serif;
 }
 
 select{
