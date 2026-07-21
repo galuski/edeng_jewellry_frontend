@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from "react-i18next";
-import './CouponPopup.css'; // נוצר בשלב הבא
 
 export function CouponPopup({ isOpen, onClose, discountAmount, currency }) {
     const { t } = useTranslation();
