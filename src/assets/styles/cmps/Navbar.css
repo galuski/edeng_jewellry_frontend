@@ -5,7 +5,6 @@
   position: sticky; /* שומר את התפריט קבוע למעלה */
   top: 0; /* ממקם אותו בצמוד לחלק העליון */
   left: 0;
-  font-family: Madera, sans-serif;
   background-color: var(--clr4);
   color: var(--clr5);
   width: 100%;
@@ -104,7 +103,6 @@
   /* border: 1px solid #ccc; */
   padding: 2px 3px;
   font-size: 16px;
-  font-family: inherit;
   color: var(--clr4);
   cursor: pointer;
   outline: none;
@@ -117,7 +115,6 @@
   position: sticky; /* שומר את התפריט קבוע למעלה */
   top: 0; /* ממקם אותו בצמוד לחלק העליון */
   left: 0;
-  font-family: Madera, sans-serif;
   background-color: var(--clr4);
   color: var(--clr5);
   width: 100%;
