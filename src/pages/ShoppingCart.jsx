@@ -54,23 +54,25 @@ export function ShoppingCart() {
     }
 
     function getCartTotal() {
+        // מוודא שהמערך קיים לפני שעושים עליו reduce
+        if (!shoppingCart || !Array.isArray(shoppingCart)) return 0;
         return shoppingCart.reduce((acc, jewel) => acc + jewel.price, 0)
     }
 
-function applyCoupon() {
-    if (isCouponApplied) {
-        showErrorMsg(t("Coupon already applied"))
-        return
-    }
+    function applyCoupon() {
+        if (isCouponApplied) {
+            showErrorMsg(t("Coupon already applied"))
+            return
+        }
 
-    if (couponInput === validCouponCode) {
-        setIsCouponApplied(true)
-        setIsPopupOpen(true) // מפעיל את הפופאפ!
-        showSuccessMsg(t("A discount of $500 has been applied"))
-    } else {
-        showErrorMsg(t("Invalid coupon code"))
+        if (couponInput === validCouponCode) {
+            setIsCouponApplied(true)
+            setIsPopupOpen(true) // מפעיל את הפופאפ!
+            showSuccessMsg(t("A discount of $500 has been applied"))
+        } else {
+            showErrorMsg(t("Invalid coupon code"))
+        }
     }
-}
 
     // --- חישובים נכונים המאפשרים סכום שלילי ---
     const subtotal = getCartTotal()
@@ -85,7 +87,7 @@ function applyCoupon() {
             showErrorMsg(t("Please add more items to the cart to fully utilize your $500 coupon"));
             return false;
         }
-        
+
         if (!isTermsAccepted) {
             showErrorMsg(t("You must accept the Terms and Conditions before continuing"));
             return false;
@@ -106,7 +108,7 @@ function applyCoupon() {
     }
 
     function onPaymentSuccess(orderId) {
-        const items = shoppingCart.map(jewel => ({
+        const items = (shoppingCart || []).map(jewel => ({
             _id: jewel._id,
             price: jewel.price,
             quantity: 1,
@@ -129,7 +131,7 @@ function applyCoupon() {
         if (!validateForm()) return;
 
         try {
-            const items = shoppingCart.map(jewel => ({
+            const items = (shoppingCart || []).map(jewel => ({
                 _id: jewel._id,
                 price: jewel.price,
                 quantity: 1,
@@ -188,7 +190,7 @@ function applyCoupon() {
 
     return (
         <section className="cart">
-            {shoppingCart.length === 0 ? (
+            {(!shoppingCart || shoppingCart.length === 0) ? (
                 <p className="empty-cart-msg">{t("The Cart is Empty")}</p>
             ) : (
                 <>
@@ -214,18 +216,18 @@ function applyCoupon() {
                         <div className="cart-total">
                             <h2>{t("Cart Totals")}</h2>
                             <p>{t("Subtotal")} {utilService.getFormattedPrice(subtotal, currency, exchangeRate)}</p>
-                            
+
                             {isCouponApplied && (
                                 <p>{t("Discount ($500)")} -{utilService.getFormattedPrice(discountAmount, currency, exchangeRate)}</p>
                             )}
-                            
+
                             <div>
                                 <p className='shopping-cart-delivery-txt'>
                                     {t("Delivery Fee")} {utilService.getFormattedPrice(deliveryFree, currency, exchangeRate)}
                                 </p>
                                 <p>{t("Home delivery by courier, estimated arrival time: 3–7 business days")}</p>
                             </div>
-                            
+
                             {/* יציג את הסכום השלילי ללקוחה ללא סינון */}
                             <b>{t("Total")} {utilService.getFormattedPrice(finalTotal, currency, exchangeRate)}</b>
 
@@ -291,24 +293,20 @@ function applyCoupon() {
                                         </a>
                                     </label>
                                 </div>
-                                
+
                                 <div className='shopping-cart-buttons-area'>
-                                    <button 
-                                        type="submit" 
+                                    <button
+                                        type="submit"
                                         className="cart-submit-btn"
-                                        // אופציונלי: אפשר גם להפוך את הכפתור לאפור אם הסכום שלילי
-                                        // disabled={finalTotal < 0} 
                                     >
                                         {t("PROCEED TO CHECKOUT")}
                                     </button>
                                     <PayPalCheckoutButton
                                         validateForm={validateForm}
                                         payerDetails={{ payerName, payerEmail, payerPhone, payerAddress, payerApartment, payerPostal, payerCity }}
-                                        // הגנה למקרה שהסכום שלילי - שולחים ערך מינימלי כדי שפייפאל לא יזרוק שגיאה ברינדור
-                                        // ה-validateForm במילא יחסום את הלחיצה
-                                        amount={finalTotalInUSD > 0 ? +finalTotalInUSD.toFixed(2) : 0.01} 
+                                        amount={finalTotalInUSD > 0 ? +finalTotalInUSD.toFixed(2) : 0.01}
                                         cartItems={shoppingCart}
-                                        onPaymentSuccess={onPaymentSuccess} 
+                                        onPaymentSuccess={onPaymentSuccess}
                                     />
                                 </div>
                             </form>
@@ -337,10 +335,12 @@ function applyCoupon() {
                     </div>
                 </>
             )}
-            <CouponPopup 
-                isOpen={isPopupOpen} 
-                onClose={() => setIsPopupOpen(false)} 
-                discountAmount={currency === 'USD' ? discountInUSD : discountAmountILS}
+            
+            {/* 🌟 התיקון של המשתנה כאן: discountAmount במקום discountAmountILS */}
+            <CouponPopup
+                isOpen={isPopupOpen}
+                onClose={() => setIsPopupOpen(false)}
+                discountAmount={currency === 'USD' ? discountInUSD : discountAmount}
                 currency={currency}
             />
         </section>
