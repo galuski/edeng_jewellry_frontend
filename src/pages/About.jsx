@@ -4,6 +4,7 @@ import aboutIMG from './../../public/images/about.jpeg'
 import { utilService } from "../services/util.service"
 
 export function About() {
+    
     const { t, ready } = useTranslation();
 
     return (
