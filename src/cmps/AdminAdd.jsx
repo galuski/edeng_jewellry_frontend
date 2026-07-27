@@ -154,7 +154,7 @@ export function AdminAdd() {
                     Description (Hebrew):
                     <textarea className="admin-add__textarea" name="descriptionHEB" value={jewel.descriptionHEB} onChange={handleChange}></textarea>
                 </label>
-                <button className="admin-add__button" type="submit">Add Jewel 𖢻</button>
+                <button className="admin-add__button" type="submit">Add Jewel</button>
             </form>
         </section>
     );
