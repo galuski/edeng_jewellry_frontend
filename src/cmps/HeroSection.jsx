@@ -10,7 +10,7 @@ const HeroSection = () => {
     <section className="hero-section">
       <div className="hero-text">
         <div className="hero-titles">
-          <h1>Welcome to Eden Jewellry</h1>
+          <h1>Welcome to Eden Jewellery</h1>
           <h2>
             Everyone has their own special light
           </h2>

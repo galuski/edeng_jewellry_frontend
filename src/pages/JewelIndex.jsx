@@ -42,7 +42,7 @@ export function JewelIndex() {
     return (
         <div>
             <div className="animate__animated animate__fadeIn animate__delay-1s">
-            <Title title={t("Jewellry")} orientation="horizontal" />
+            <Title title={t("Jewellery")} orientation="horizontal" />
             </div>
             <main>
                 <JewelryFilter filterBy={filterBy} onSetFilter={onSetFilter} />

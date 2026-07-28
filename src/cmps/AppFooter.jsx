@@ -39,7 +39,7 @@ export function AppFooter() {
                                 to="/jewel"
                                 className={({ isActive }) => isActive ? "active-link" : ""}
                             >
-                                {t("Jewellry")}
+                                {t("Jewellery")}
                             </NavLink>
                         </li>
                         <li>

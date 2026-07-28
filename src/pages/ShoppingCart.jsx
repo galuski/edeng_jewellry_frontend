@@ -172,7 +172,7 @@ export function ShoppingCart() {
                 phone: payerPhone,
                 address: `${payerAddress}, Apt ${payerApartment || ''}, ${payerCity}`,
                 zipcode: payerPostal || "",
-                comments: `Order from Edeng_Jewellry website`,
+                comments: `Order from Edeng_Jewellery website`,
             }
 
             localStorage.setItem("lastContact", JSON.stringify(contact))

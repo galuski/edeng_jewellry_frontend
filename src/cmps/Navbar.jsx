@@ -85,7 +85,7 @@ export function Navbar() {
                         className={({ isActive }) => isActive ? "active-link" : ""}
                         onClick={() => setMenuOpen(!menuOpen)}
                     >
-                        {t("Jewellry")}
+                        {t("Jewellery")}
                     </NavLink>
                 </li>
                 <li>

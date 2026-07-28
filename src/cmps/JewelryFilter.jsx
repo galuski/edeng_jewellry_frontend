@@ -54,7 +54,7 @@ export default function JewelryFilter({ filterBy, onSetFilter }) {
 
   return (
     <div className="filter-container">
-      <label className="filter-label">{t("Jewellry Filter:")}</label>
+      <label className="filter-label">{t("Jewellery Filter:")}</label>
 
       <div className="search-container">
 
